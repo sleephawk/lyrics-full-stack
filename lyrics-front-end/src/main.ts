@@ -1,24 +1,20 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import "./style.scss";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const cleanInput = (input: string): string => {
+  return input.trim().replace(/\s+/g, " ");
+};
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// so needs to look through the database to find a song by lyric.
+//it only has the song so it needs to search the field
+const searchSong = async (input: string) => {
+  const lyric = cleanInput(input);
+  const url = new URL("http://localhost:8080/api/songs");
+  url.searchParams.append("search", lyric);
+  const response = await fetch(url.toString());
+  if (!response.ok)
+    throw new Error(
+      "Could not find this song, are you sure you typed it correctly?"
+    );
+  const songDetails = response.json();
+  return songDetails;
+};

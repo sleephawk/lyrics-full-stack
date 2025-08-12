@@ -1,0 +1,57 @@
+@use "scss_modules/palette.scss";
+
+/*==========GENERAL RULES==========*/
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: palette.$savoy-blue;
+  color: palette.$whimillion;
+  background: linear-gradient(palette.$raisin-black, palette.$delft-blue);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body {
+  height: 100vh;
+  justify-content: center;
+}
+
+a {
+  font-weight: 500;
+  color: palette.$violet;
+  text-decoration: inherit;
+}
+a:hover {
+  color: palette.$whimillion;
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+  position: relative;
+  top: 10px;
+  left: 30px;
+}
+
+button {
+}
+button:hover {
+}
+// button:focus,
+// button:focus-visible {
+//   outline: 4px auto -webkit-focus-ring-color;
+// }
+
+/*==========MAIN RULES==========*/
+
+.search-container {
+  flex-direction: column;
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  &--form {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+  }
+}
