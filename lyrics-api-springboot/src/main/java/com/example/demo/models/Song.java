@@ -11,6 +11,8 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // for testing;
+
     private String name;
     private int releaseYear;
     private String lyrics;
