@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/api/songs")
 public class SongController {
 
@@ -33,7 +34,7 @@ public class SongController {
         }
     }
 
-    @GetMapping("/searchByLyrics")
+    @GetMapping
     public ResponseEntity<List<Song>> songsFromLyrics(@RequestParam List<String> words) {
         try {
             List<Song> songs = songService.songsFromLyrics(words);
