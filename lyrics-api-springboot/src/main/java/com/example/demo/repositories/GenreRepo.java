@@ -1,12 +1,12 @@
 package com.example.demo.repositories;
 
-import com.example.demo.models.Artist;
+import com.example.demo.models.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ArtistRepo extends JpaRepository<Artist, Long> {
-    Optional<Artist> findByName(String name);
+public interface GenreRepo extends JpaRepository<Genre, Long> {
+    Optional<Genre> findByName(String name);
 }
