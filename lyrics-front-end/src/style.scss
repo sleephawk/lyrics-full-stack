@@ -49,10 +49,6 @@ button {
 button:hover {
   border: solid 1px palette.$vermilion;
 }
-// button:focus,
-// button:focus-visible {
-//   outline: 4px auto -webkit-focus-ring-color;
-// }
 
 /*==========MAIN RULES==========*/
 
@@ -100,4 +96,9 @@ button:hover {
   flex-direction: column;
   justify-self: center;
   text-align: center;
+}
+
+#error-message {
+  opacity: 0;
+  transition: opacity 1s linear;
 }

@@ -40,7 +40,6 @@ interface SongDetails {
 const searchSong = async (input: string): Promise<SongDetails> => {
   const lyric: string = cleanInput(input);
   const url: URL = new URL("localhost:8080/api/songs");
-  //Split cleaned input into words, append each to the url using for of loop
   url.searchParams.append("search", lyric);
   const response = await fetch(url.toString());
   if (!response.ok)
