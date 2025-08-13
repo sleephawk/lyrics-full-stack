@@ -2,74 +2,57 @@ package com.example.demo.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Reference;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@Entity(name = "Songs")
+@Entity
+@Table(name = "songs")
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // for testing;
-
     private String name;
-    private int releaseYear;
+
+    @Column(columnDefinition = "TEXT")
     private String lyrics;
 
-    @OneToMany(mappedBy = "song")
-    @JsonIgnore
-    private List<Artist> artist;
+    @Column(name = "release_year")
+    private Integer releaseYear;
 
-    @OneToMany(mappedBy = "song")
-    @JsonIgnore
-    private Genre genre;
+    @ManyToMany
+    @JoinTable(
+            name = "song_authors",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors = new ArrayList<>();
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(
+            name = "song_genres",
+            joinColumns = @JoinColumn(name = "song_id"),
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres = new ArrayList<>();
 
-    public String getName() {
-        return name;
-    }
+    // constructors, getters, setters
 
-    public int getReleaseYear() {
-        return releaseYear;
-    }
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public String getLyrics() { return lyrics; }
+    public Integer getReleaseYear() { return releaseYear; }
+    public List<Author> getAuthors() { return authors; }
+    public List<Genre> getGenres() { return genres; }
 
-    public String getLyrics() {
-        return lyrics;
-    }
-
-    public List<Artist> getArtist() {
-        return artist;
-    }
-
-    public Genre getGenre() {
-        return genre;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
-    }
-
-    public void setLyrics(String lyrics) {
-        this.lyrics = lyrics;
-    }
-
-    public void setArtist(List<Artist> artist) {
-        this.artist = artist;
-    }
-
-    public void setGenre(Genre genre) {
-        this.genre = genre;
-    }
+    public void setId(Long id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
+    public void setLyrics(String lyrics) { this.lyrics = lyrics; }
+    public void setAuthors(List<Author> authors) { this.authors = authors; }
+    public void setGenres(List<Genre> genres) { this.genres = genres; }
 }
+
