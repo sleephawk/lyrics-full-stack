@@ -3,7 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/style.scss" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:ital,wght@0,200..700;1,200..700&family=Forum&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Libertinus+Math&family=Orbitron:wght@400..900&family=Outfit:wght@100..900&family=Press+Start+2P&family=Rouge+Script&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
     <title>Submit Song</title>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <span>|</span>
+        <a href="game.html">Lyric Game</a>
+        <span>|</span>
+        <a href="#">Submit A Song</a>
+      </nav>
+    </header>
+    <main>
+      <h1>We're a small team, help us fill up our database!</h1>
+      <form id="submit-song-form">
+        <!-- will need to change author to artist -->
+        <label for="name">Song name:</label><br />
+        <input id="name" name="name" placeholder="Yellow Submarine" /><br />
+        <label for="authorNames">Artist(s):</label><br />
+        <input
+          id="authorNames"
+          name="authorNames"
+          placeholder="Beatles"
+        /><br />
+        <label for="releaseYear">Release Year:</label><br />
+        <input id="releaseYear" name="releaseYear" placeholder="1966" /><br />
+        <label for="genreNames">Genre(s):</label><br />
+        <input
+          id="genreNames"
+          name="genreNames"
+          placeholder="Brit-pop, pop"
+        /><br />
+        <label for="lyrics">Lyrics:</label><br />
+        <textarea
+          placeholder="Please enter full lyrics! We appreciate your diligence and help 🤓"
+          id="lyrics"
+          name="lyrics"
+          rows="25"
+          cols="33"
+        ></textarea
+        ><br />
+        <button id="submit-song-button" type="submit">Submit</button>
+      </form>
+    </main>
+    <script type="module" src="/src/ts_modules/submit-song.ts"></script>
+  </body>
 </html>

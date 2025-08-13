@@ -1,8 +1,9 @@
-import "./style.scss";
+import "../style.scss";
 
 //Query Selectors
 
-const submit = document.querySelector<HTMLButtonElement>("#submit");
+const searchLyricSubmit =
+  document.querySelector<HTMLButtonElement>("#searchLyricSubmit");
 const displayArea = document.querySelector<HTMLDivElement>(".display-area");
 const responseDisplay =
   document.querySelector<HTMLParagraphElement>("#display-response");
@@ -11,13 +12,13 @@ const quickMessage = document.querySelector<HTMLParagraphElement>(
 );
 
 if (
-  !submit ||
+  !searchLyricSubmit ||
   !responseDisplay ||
   !responseDisplay ||
   !quickMessage ||
   !displayArea
 ) {
-  throw new Error("Some DOM elements are missing.");
+  throw new Error("Missing DOM elements on home page");
 }
 
 //UTILS
@@ -39,8 +40,9 @@ interface SongDetails {
 
 const searchSong = async (input: string): Promise<SongDetails> => {
   const lyric: string = cleanInput(input);
-  const url: URL = new URL();
-  // "https://mocki.io/v1/0340b343-1ca6-486e-998f-f55567ea0536"
+  const url: URL = new URL("localhost:8080/api/songs/search/lyrics?words="); // need the GET URL
+  // "https://mocki.io/v1/0340b343-1ca6-486e-998f-f55567ea0536/"
+  //Split cleaned input into words, append each to the url using for of loop
   url.searchParams.append("search", lyric);
   const response = await fetch(url.toString());
   if (!response.ok)
@@ -50,9 +52,8 @@ const searchSong = async (input: string): Promise<SongDetails> => {
   const songDetails: SongDetails = await response.json();
   return songDetails;
 };
-submit.addEventListener("click", async (e) => {
+searchLyricSubmit.addEventListener("click", async (e) => {
   e.preventDefault();
-  console.log("button has been pressed!");
 
   const lyricForm = document.querySelector(
     "#input-field"
@@ -76,6 +77,23 @@ submit.addEventListener("click", async (e) => {
   }
 });
 
+//GET
+//api/songs/search/lyrics?words=life
+
+//POST
+//api/songs/submit
+
+/**SUBMIT
+ * 
+{
+  "name": "Bohemian Rhapsody",
+  "lyrics": "Is this the real life? Is this just fantasy?...",
+  "releaseYear": 1975,
+  "authorNames": ["Freddie Mercury", "Queen"],
+  "genreNames": ["Rock", "Progressive Rock"]
+}
+ */
+
 /** TEST DATA
  * 
  * {
@@ -90,4 +108,8 @@ submit.addEventListener("click", async (e) => {
 
 /** YOUTUBE URL GEN
  * https://www.youtube.com/results?search_query=YOUR+SONG+NAME
+ */
+
+/**
+ * [{"id":2,"name":"Yellow Submarine","lyrics":"In the town where I was born Lived a man who sailed to sea And he told us of his life","releaseYear":1980,"authors":[{"id":3,"name":"Beetles"}],"genres":[{"id":3,"name":"Pop"},{"id":4,"name":"Brit Pop"}]}]
  */

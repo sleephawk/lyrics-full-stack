@@ -56,6 +56,8 @@ button:hover {
 
 /*==========MAIN RULES==========*/
 
+//HOME
+
 .search-container {
   flex-direction: column;
   display: flex;
@@ -89,4 +91,13 @@ button:hover {
     transition: opacity 0.2s ease-in;
     max-width: 80%;
   }
+}
+
+//SUBMIT
+
+#submit-song-form {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  text-align: center;
 }
