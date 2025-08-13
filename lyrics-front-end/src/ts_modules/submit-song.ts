@@ -15,29 +15,30 @@ submitSongForm.addEventListener("submit", async (e) => {
   const formData = new FormData(form); //learnt this today
 
   const name = formData.get("name") as string;
-  const authorNames = formData.get("authorNames") as string;
+  const authorNames: string = formData.get("authorNames") as string;
   const releaseYear = formData.get("releaseYear") as string;
   const genreNames = formData.get("genreNames") as string;
   const lyrics = formData.get("lyrics") as string;
 
   console.log({ name, authorNames, releaseYear, genreNames, lyrics });
 
-  // try {
-  //   const song = await searchSong(lyricForm.value);
-  //   responseDisplay.innerHTML = `
-  //   Song: ${song.song}<br><br>
-  //   Artist: ${song.artist}<br><br>
-  //   Year: ${song.year}<br><br>
-  //   Lyrics:\n${song.lyrics}<br><br>
-  //   Genre: ${song.genre}`;
-
-  //   displayArea.style.opacity = "1";
-  //   quickMessage.style.opacity = "1";
-  //   await sleep(300);
-  //   responseDisplay.style.opacity = "1";
-  // } catch (error) {
-  //   return "No luck this time";
-  // }
+  const response = await fetch("localhost:8080/api/songs/submit", {
+    method: "POST",
+    body: JSON.stringify({
+      name: name,
+      authorNames: authorNames,
+      releaseYear: releaseYear,
+      genreNames: genreNames,
+      lyrics: lyrics,
+    }),
+  });
+  if (response.ok) {
+    confirm("That's all good! Thanks for submitting a song");
+  } else {
+    alert(
+      "There's been some problem with this addition on our side, please try again later"
+    );
+  }
 });
 
 // {
