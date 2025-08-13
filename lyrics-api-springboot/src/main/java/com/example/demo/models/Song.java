@@ -1,11 +1,8 @@
 package com.example.demo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Reference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -25,11 +22,11 @@ public class Song {
 
     @ManyToMany
     @JoinTable(
-            name = "song_authors",
+            name = "song_artists",
             joinColumns = @JoinColumn(name = "song_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id")
+            inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
-    private List<Author> authors = new ArrayList<>();
+    private List<Artist> artists = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
@@ -45,14 +42,14 @@ public class Song {
     public String getName() { return name; }
     public String getLyrics() { return lyrics; }
     public Integer getReleaseYear() { return releaseYear; }
-    public List<Author> getAuthors() { return authors; }
+    public List<Artist> getArtists() { return artists; }
     public List<Genre> getGenres() { return genres; }
 
     public void setId(Long id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
     public void setLyrics(String lyrics) { this.lyrics = lyrics; }
-    public void setAuthors(List<Author> authors) { this.authors = authors; }
+    public void setArtists(List<Artist> artists) { this.artists = artists; }
     public void setGenres(List<Genre> genres) { this.genres = genres; }
 }
 

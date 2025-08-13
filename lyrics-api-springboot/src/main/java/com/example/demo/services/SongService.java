@@ -1,10 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.DTOs.CreateSongRequest;
-import com.example.demo.models.Author;
+import com.example.demo.models.Artist;
 import com.example.demo.models.Genre;
 import com.example.demo.models.Song;
-import com.example.demo.repositories.AuthorRepo;
+import com.example.demo.repositories.ArtistRepo;
 import com.example.demo.repositories.GenreRepo;
 import com.example.demo.repositories.SongRepo;
 import org.springframework.stereotype.Service;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @Service
 public class SongService {
     private final SongRepo songRepo;
-    private final AuthorRepo authorRepo;
+    private final ArtistRepo artistRepo;
     private final GenreRepo genreRepo;
 
-    public SongService(SongRepo songRepo, AuthorRepo authorRepo, GenreRepo genreRepo) {
+    public SongService(SongRepo songRepo, ArtistRepo artistRepo, GenreRepo genreRepo) {
         this.songRepo = songRepo;
-        this.authorRepo = authorRepo;
+        this.artistRepo = artistRepo;
         this.genreRepo = genreRepo;
     }
 
@@ -33,19 +33,19 @@ public class SongService {
         song.setLyrics(request.getLyrics());
         song.setReleaseYear(request.getReleaseYear());
 
-        List<Author> authors = new ArrayList<>();
-        if (request.getAuthorNames() != null) {
-            for (String authorName : request.getAuthorNames()) {
-                Author author = authorRepo.findByName(authorName)
+        List<Artist> artists = new ArrayList<>();
+        if (request.getArtistNames() != null) {
+            for (String artistName : request.getArtistNames()) {
+                Artist artist = artistRepo.findByName(artistName)
                         .orElseGet(() -> {
-                            Author newAuthor = new Author();
-                            newAuthor.setName(authorName);
-                            return authorRepo.save(newAuthor);
+                            Artist newArtist = new Artist();
+                            newArtist.setName(artistName);
+                            return artistRepo.save(newArtist);
                         });
-                authors.add(author);
+                artists.add(artist);
             }
         }
-        song.setAuthors(authors);
+        song.setArtists(artists);
 
         List<Genre> genres = new ArrayList<>();
         if (request.getGenreNames() != null) {

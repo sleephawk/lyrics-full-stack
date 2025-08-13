@@ -33,7 +33,7 @@ public class SongController {
         }
     }
 
-    @GetMapping("/search/lyrics")
+    @GetMapping("/searchByLyrics")
     public ResponseEntity<List<Song>> songsFromLyrics(@RequestParam List<String> words) {
         try {
             List<Song> songs = songService.songsFromLyrics(words);

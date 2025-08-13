@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "authors")
-public class Author {
+@Table(name = "artists")
+public class Artist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,7 @@ public class Author {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "artists")
     private List<Song> songs = new ArrayList<>();
 
     // constructors, getters, setters

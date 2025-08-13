@@ -6,18 +6,18 @@ public class CreateSongRequest {
     private String name;
     private String lyrics;
     private Integer releaseYear;
-    private List<String> authorNames;
+    private List<String> artistNames;
     private List<String> genreNames;
 
     // Constructors
     public CreateSongRequest() {}
 
     public CreateSongRequest(String name, String lyrics, Integer releaseYear,
-                             List<String> authorNames, List<String> genreNames) {
+                             List<String> artistNames, List<String> genreNames) {
         this.name = name;
         this.lyrics = lyrics;
         this.releaseYear = releaseYear;
-        this.authorNames = authorNames;
+        this.artistNames = artistNames;
         this.genreNames = genreNames;
     }
 
@@ -31,8 +31,8 @@ public class CreateSongRequest {
     public Integer getReleaseYear() { return releaseYear; }
     public void setReleaseYear(Integer releaseYear) { this.releaseYear = releaseYear; }
 
-    public List<String> getAuthorNames() { return authorNames; }
-    public void setAuthorNames(List<String> authorNames) { this.authorNames = authorNames; }
+    public List<String> getArtistNames() { return artistNames; }
+    public void setArtistNames(List<String> artistNames) { this.artistNames = artistNames; }
 
     public List<String> getGenreNames() { return genreNames; }
     public void setGenreNames(List<String> genreNames) { this.genreNames = genreNames; }
