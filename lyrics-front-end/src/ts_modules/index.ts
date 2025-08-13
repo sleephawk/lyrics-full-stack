@@ -1,4 +1,5 @@
 import "../style.scss";
+import { sleep } from "./utils";
 
 //Query Selectors
 
@@ -26,8 +27,6 @@ const cleanInput = (input: string): string => {
   return input.trim().replace(/\s+/g, " ");
 };
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 //API Handling
 interface SongDetails {
   id: number;
@@ -40,14 +39,13 @@ interface SongDetails {
 
 const searchSong = async (input: string): Promise<SongDetails> => {
   const lyric: string = cleanInput(input);
-  const url: URL = new URL("localhost:8080/api/songs/search/lyrics?words="); // need the GET URL
-  // "https://mocki.io/v1/0340b343-1ca6-486e-998f-f55567ea0536/"
+  const url: URL = new URL("localhost:8080/api/songs");
   //Split cleaned input into words, append each to the url using for of loop
   url.searchParams.append("search", lyric);
   const response = await fetch(url.toString());
   if (!response.ok)
     throw new Error(
-      "Could not find this song, are you sure you typed it correctly?"
+      "Could not find this song, are you sure you typed it correctly? It may also not be on our database"
     );
   const songDetails: SongDetails = await response.json();
   return songDetails;
