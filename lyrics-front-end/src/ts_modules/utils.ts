@@ -19,7 +19,7 @@ export const displayMessageOnSubmit = async (
   error.textContent = message;
   await sleep(50);
   error.style.opacity = "1";
-  await sleep(300);
+  await sleep(5000);
   error.style.opacity = "0";
   await sleep(100);
   error.textContent = "";
