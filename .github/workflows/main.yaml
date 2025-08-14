@@ -31,11 +31,6 @@ jobs:
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Authenticate Railway CLI
-        run: railway login --ci $RAILWAY_TOKEN
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
         run: railway up --detached --project ${{ secrets.RAILWAY_PROJECT_ID }}
