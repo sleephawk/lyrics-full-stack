@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="602320e8-8277-4378-8a30-656d39ac8cc0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/controllers/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/controllers/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/repositories/SongRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/repositories/SongRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/services/SongService.java" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/src/main/java/com/example/demo/services/SongService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/controllers/SongController.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/controllers/SongController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/repositories/SongRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/repositories/SongRepo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/services/SongService.class" beforeDir="false" afterPath="$PROJECT_DIR$/lyrics-api-springboot/target/classes/com/example/demo/services/SongService.class" afterDir="false" />
-    </list>
+    <list default="true" id="602320e8-8277-4378-8a30-656d39ac8cc0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +34,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "backend-v2",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/georgy/Desktop/NologyV1/final_project/lyrics-full-stack"
   }
 }]]></component>
