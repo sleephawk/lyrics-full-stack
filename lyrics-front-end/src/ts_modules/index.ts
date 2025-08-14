@@ -26,22 +26,23 @@ if (
 interface SongDetails {
   id: number;
   name: string;
-  artists: string[];
+  artists: any[];
   releaseYear: number;
-  lyrics: string[];
-  genres: string[];
+  lyrics: string;
+  genres: any[];
 }
 
 const searchSong = async (input: string): Promise<SongDetails[]> => {
   const lyric: string = sanitiseInput(input);
+  const words = lyric.split(",").map((w) => w.trim());
+
   const url = new URL("http://localhost:8080/api/songs");
-  url.searchParams.append("words", lyric);
+
+  words.forEach((word) => url.searchParams.append("words", word));
 
   const response = await fetch(url.toString());
   if (!response.ok) {
-    throw new Error(
-      "Could not find this song, are you sure you typed it correctly? It may also not be on our database"
-    );
+    throw new Error("we have an error - cannot find the database");
   }
 
   const songDetails: SongDetails[] = await response.json();
@@ -57,11 +58,22 @@ searchLyricSubmit.addEventListener("click", async (e) => {
 
   try {
     const song = await searchSong(lyricForm.value);
+    if (song.length <= 0) {
+      quickMessage.textContent =
+        "We found...nothing this time! Try something new.";
+      displayArea.style.opacity = "1";
+      quickMessage.style.opacity = "1";
+      await sleep(500);
+      displayArea.style.opacity = "0";
+      quickMessage.style.opacity = "0";
+    }
     console.log(song);
+
     song.forEach(async (s, i) => {
       let card = document.createElement("p");
       card.classList.add("display-area--text__card");
-      card.innerHTML = `▶ ${s.artists.join(", ")}:<br> ${s.name} `;
+      const artistNames = s.artists.map((a) => a.name).join(", ");
+      card.innerHTML = `▶ ${artistNames}:<br> ${s.name} `;
       let cardExpand = false;
       responseDisplay.appendChild(card);
       await sleep((i + 1) * 200);
@@ -76,23 +88,24 @@ searchLyricSubmit.addEventListener("click", async (e) => {
           link.setAttribute("href", youtube);
           link.setAttribute("target", "_blank");
           link.textContent = "Find on Youtube";
-          card.innerHTML = `
-            ▼ ${s.artists.join(", ")}<br><br>
-            ${s.name}<br><br>
+
+          const genreNames = s.genres.map((g) => g.name).join(", ");
+          card.innerHTML = `▶ ${artistNames}:<br> ${s.name} 
             Release Year: ${s.releaseYear}<br><br>
-            Genre(s): ${s.genres.join(", ")}<br><br>
+            Genre(s): ${genreNames}<br><br>
             Lyrics:<br> ${s.lyrics}<br><br>
             `;
           card.appendChild(link);
           cardExpand = true;
         } else {
-          card.innerHTML = `▶ ${s.artists.join(", ")}:<br> ${s.name} `;
+          card.innerHTML = `▶ ${artistNames}:<br> ${s.name} `;
           cardExpand = false;
         }
       });
     });
 
     displayArea.style.opacity = "1";
+    quickMessage.textContent = "We found...";
     quickMessage.style.opacity = "1";
     await sleep(300);
     responseDisplay.style.opacity = "1";
