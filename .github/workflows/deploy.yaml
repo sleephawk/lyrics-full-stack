@@ -29,7 +29,7 @@ jobs:
         run: npm install -g @railway/cli
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
-        run: railway up --service backend --detached
+        run: railway up --service backend --detach
   frontend:
     name: Deploy Vite Frontend to GitHub Pages
     runs-on: ubuntu-latest
