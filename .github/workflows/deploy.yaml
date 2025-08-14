@@ -26,6 +26,10 @@ jobs:
           distribution: temurin
           java-version: 21
 
+      - name: Make Maven Wrapper executable
+        working-directory: ./backend
+        run: chmod +x ./mvnw
+
       - name: Build Spring Boot
         working-directory: ./lyrics-api-springboot
         run: ./mvnw clean package -DskipTests
