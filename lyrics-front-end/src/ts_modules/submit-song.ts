@@ -44,6 +44,9 @@ submitSongForm.addEventListener("submit", async (e) => {
   try {
     const response = await fetch("http://localhost:8080/api/songs", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: name,
         artists: artists,
