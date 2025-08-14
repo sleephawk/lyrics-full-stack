@@ -36,6 +36,7 @@ jobs:
       # Deploy Docker container to Railway
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
-        run: |
+        run:
+          railway up --detach --service lyrics-api-springboot
+
           # railway login --token $RAILWAY_TOKEN
-          railway up --detach
