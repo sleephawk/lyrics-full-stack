@@ -15,7 +15,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: "21"
           cache: maven
 
       - name: Build Spring Boot
@@ -26,19 +26,16 @@ jobs:
       - name: Set up Node.js (for Railway CLI)
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: "20"
 
       - name: Install Railway CLI
         run: npm install -g @railway/cli
 
-      - name: Link Railway project
-        working-directory: ./lyrics-api-springboot
+      - name: Authenticate Railway CLI
+        run: railway login --ci $RAILWAY_TOKEN
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway link --project ${{ secrets.RAILWAY_PROJECT_ID }}
 
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --detached
+        run: railway up --detached --project ${{ secrets.RAILWAY_PROJECT_ID }}
