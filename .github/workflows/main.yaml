@@ -33,4 +33,4 @@ jobs:
 
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
-        run: railway up --detached --project ${{ secrets.RAILWAY_PROJECT_ID }}
+        run: railway up --detach --project ${{ secrets.RAILWAY_PROJECT_ID }}
