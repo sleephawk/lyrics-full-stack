@@ -31,7 +31,6 @@ jobs:
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
         run: |
-          railway login --token $RAILWAY_TOKEN
           railway up --detached
   frontend:
     name: Deploy Vite Frontend to GitHub Pages
