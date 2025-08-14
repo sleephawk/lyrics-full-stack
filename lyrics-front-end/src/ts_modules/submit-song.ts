@@ -5,7 +5,8 @@ import { displayMessageOnSubmit } from "./utils";
 
 //UTILS
 
-const submitSongForm = document.querySelector<HTMLFormElement>("#submit-song-form");
+const submitSongForm =
+  document.querySelector<HTMLFormElement>("#submit-song-form");
 const errorP = document.querySelector<HTMLParagraphElement>("#error-message");
 
 if (!submitSongForm || !errorP) {
@@ -20,13 +21,24 @@ submitSongForm.addEventListener("submit", async (e) => {
   const formData = new FormData(form); //learnt this today
 
   const name = sanitiseInput(formData.get("name") as string);
-  const artistNames: string = sanitiseInput(formData.get("artistNames") as string);
+  const artistNames: string = sanitiseInput(
+    formData.get("artistNames") as string
+  );
   const artists: string[] = artistNames.split(",");
   const releaseYear = sanitiseInput(formData.get("releaseYear") as string);
   const genreNames = sanitiseInput(formData.get("genreNames") as string);
   const genres: string[] = genreNames.split(",");
   const lyrics = sanitiseInput(formData.get("lyrics") as string);
 
+  const json = JSON.stringify({
+    name: name,
+    artists: artists,
+    releaseYear: releaseYear,
+    genres: genres,
+    lyrics: lyrics,
+  });
+
+  console.log(json);
   try {
     const response = await fetch("http://localhost:8080/api/songs", {
       method: "POST",
@@ -39,9 +51,17 @@ submitSongForm.addEventListener("submit", async (e) => {
       }),
     });
     if (response.ok) {
-      /*200*/ displayMessageOnSubmit(form, errorP, "Thanks for your contribution! We appreciate your support.");
+      /*200*/ displayMessageOnSubmit(
+        form,
+        errorP,
+        "Thanks for your contribution! We appreciate your support."
+      );
     } else {
-      displayMessageOnSubmit(form, errorP, "Oops, something went wrong there. Please make sure you've typed your addition correctly");
+      displayMessageOnSubmit(
+        form,
+        errorP,
+        "Oops, something went wrong there. Please make sure you've typed your addition correctly"
+      );
     }
   } catch (error) {
     console.log("You're not connected properly yet - check your API.");
