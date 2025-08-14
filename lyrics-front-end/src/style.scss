@@ -59,10 +59,16 @@ button:hover {
   display: flex;
   justify-self: center;
   justify-content: center;
+  &--heading {
+    transition: transform 0.5s linear;
+  }
   &--form {
     display: flex;
     flex-direction: column;
     justify-self: center;
+    &__button:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -71,7 +77,7 @@ button:hover {
   max-width: 60%;
   justify-self: center;
   text-align: center;
-  background-color: palette.$vermilion;
+
   border-radius: 40px;
   margin-top: 30px;
   padding: 10px;
@@ -83,9 +89,25 @@ button:hover {
     display: flex;
     justify-self: center;
     align-items: center;
+    flex-direction: column;
     opacity: 0;
     transition: opacity 0.2s ease-in;
-    max-width: 80%;
+
+    &__card {
+      background-color: palette.$vermilion;
+      // background: linear-gradient(palette.$vermilion, palette.$violet);
+      border-radius: 10px;
+      align-items: center;
+      padding: 20px;
+      width: 400px;
+      border: solid 5px palette.$vermilion;
+      opacity: 0;
+      transition: opacity 0.2s linear;
+    }
+    &__card:hover {
+      cursor: pointer;
+      border: solid 5px palette.$savoy-blue;
+    }
   }
 }
 
@@ -101,4 +123,9 @@ button:hover {
 #error-message {
   opacity: 0;
   transition: opacity 1s linear;
+}
+
+.heading-span {
+  position: relative;
+  transition: transform 0.2s linear;
 }
