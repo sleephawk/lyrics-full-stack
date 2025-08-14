@@ -1,0 +1,40 @@
+name: Deploy backend to Railway
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Set up Docker
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v2
+
+      # 3. Build Docker image
+      - name: Build Docker image
+        working-directory: ./lyrics-api-springboot
+        run: docker build -t lyrics-api .
+
+      # 4. Install Railway CLI
+      - name: Install Railway CLI
+        run: |
+          curl -fsSL https://railway.app/install.sh | sh
+          export PATH=$HOME/.railway/bin:$PATH
+
+      # 5. Set Railway token for CI
+      - name: Set Railway token
+        run: echo "$RAILWAY_TOKEN" > ~/.railway/token
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+
+      # 6. Deploy backend via Railway
+      - name: Deploy backend
+        working-directory: ./lyrics-api-springboot
+        run: railway up --detach

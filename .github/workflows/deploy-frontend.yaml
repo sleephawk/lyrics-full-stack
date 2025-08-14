@@ -1,0 +1,62 @@
+name: Deploy frontend to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout the repo
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Setup Node
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: "pnpm"
+
+      # 3. Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 4. Install dependencies for all workspaces
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: .
+
+      # 5. Build only the frontend workspace
+      - name: Build frontend
+        run: pnpm --filter apps/site build
+        working-directory: .
+
+      # 6. Setup GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 7. Upload frontend dist folder
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./apps/site/dist
+
+      # 8. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
