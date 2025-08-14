@@ -4,9 +4,7 @@ export const sanitiseInput = (input: string): string => {
     .replace(/\s+/g, " ")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/>/g, "&gt;");
 };
 
 export const sleep = (ms: number) =>
