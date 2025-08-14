@@ -27,7 +27,7 @@ jobs:
           java-version: 21
 
       - name: Make Maven Wrapper executable
-        working-directory: ./backend
+        working-directory: ./lyrics-api-springboot
         run: chmod +x ./mvnw
 
       - name: Build Spring Boot
