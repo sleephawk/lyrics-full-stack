@@ -80,3 +80,6 @@ submitSongForm.addEventListener("submit", async (e) => {
 //   "authorNames": ["Freddie Mercury", "Queen"],
 //   "genreNames": ["Rock", "Progressive Rock"]
 // }
+
+// fix messages that appear to confirm found/not found/ record added
+//fix spaces in the rock genres

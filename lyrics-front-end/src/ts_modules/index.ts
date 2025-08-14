@@ -63,9 +63,10 @@ searchLyricSubmit.addEventListener("click", async (e) => {
         "We found...nothing this time! Try something new.";
       displayArea.style.opacity = "1";
       quickMessage.style.opacity = "1";
-      await sleep(500);
+      await sleep(5000);
       displayArea.style.opacity = "0";
       quickMessage.style.opacity = "0";
+      return;
     }
     console.log(song);
 
