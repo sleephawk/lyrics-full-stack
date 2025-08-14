@@ -35,4 +35,4 @@ jobs:
         working-directory: ./lyrics-api-springboot
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: railway up --detached -- --project ${{ secrets.RAILWAY_PROJECT_ID }}
+        run: railway up --detach -- --project ${{ secrets.RAILWAY_PROJECT_ID }}
