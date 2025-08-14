@@ -31,7 +31,7 @@ jobs:
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
         run: |
-          railway up --detach
+          railway up --detach --service lyrics-api-springboot
   frontend:
     name: Deploy Vite Frontend to GitHub Pages
     runs-on: ubuntu-latest
