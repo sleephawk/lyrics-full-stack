@@ -29,9 +29,9 @@ jobs:
       - name: Setup Maven
         uses: actions/setup-java@v4
         with:
-        distribution: temurin
-        java-version: 21
-        cache: maven
+          distribution: temurin
+          java-version: 21
+          cache: maven
 
       - name: Make Maven Wrapper executable
         working-directory: ./lyrics-api-springboot
