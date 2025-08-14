@@ -33,9 +33,9 @@ jobs:
           java-version: 21
           cache: maven
 
-      - name: Make Maven Wrapper executable
-        working-directory: ./lyrics-api-springboot
-        run: chmod +x ./mvnw
+      # - name: Make Maven Wrapper executable
+      #   working-directory: ./lyrics-api-springboot
+      #   run: chmod +x ./mvnw
 
       - name: Build Spring Boot
         working-directory: ./lyrics-api-springboot
