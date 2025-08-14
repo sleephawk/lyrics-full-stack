@@ -28,9 +28,11 @@ jobs:
           curl -fsSL https://railway.app/install.sh | sh
           export PATH=$HOME/.railway/bin:$PATH
 
-      # 5. Set Railway token for CI
+      # 5. Set Railway token for CI (fixed!)
       - name: Set Railway token
-        run: echo "$RAILWAY_TOKEN" > ~/.railway/token
+        run: |
+          mkdir -p ~/.railway
+          echo "$RAILWAY_TOKEN" > ~/.railway/token
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
