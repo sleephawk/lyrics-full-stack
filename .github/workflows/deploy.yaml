@@ -1,0 +1,55 @@
+name: Deploy Fullstack Application
+on:
+  push:
+    branches:
+      - main
+jobs:
+  backend:
+    name: Deploy Backend to Railway
+    runs-on: ubuntu-latest
+    env:
+      MYSQLHOST: ${{ secrets.MYSQLHOST }}
+      MYSQLPORT: ${{ secrets.MYSQLPORT }}
+      MYSQLPASSWORD: ${{ secrets.MYSQLPASSWORD }}
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      PORT: 8080
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+      - name: Build Spring Boot
+        working-directory: ./lyrics-api-springboot
+        run: mvn clean package -DskipTests
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      - name: Deploy to Railway
+        working-directory: ./lyrics-api-springboot
+        run: |
+          railway login --token $RAILWAY_TOKEN
+          railway up --detached
+  frontend:
+    name: Deploy Vite Frontend to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: backend # waits for backend to deploy first
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+      - name: Install dependencies
+        working-directory: ./lyrics-front-end
+        run: npm install
+      - name: Build frontend
+        working-directory: ./lyrics-front-end
+        run: npm run build
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
