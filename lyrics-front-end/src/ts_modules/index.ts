@@ -3,22 +3,12 @@ import { sleep } from "./utils";
 
 //Query Selectors
 
-const searchLyricSubmit =
-  document.querySelector<HTMLButtonElement>("#searchLyricSubmit");
+const searchLyricSubmit = document.querySelector<HTMLButtonElement>("#searchLyricSubmit");
 const displayArea = document.querySelector<HTMLDivElement>(".display-area");
-const responseDisplay =
-  document.querySelector<HTMLParagraphElement>("#display-response");
-const quickMessage = document.querySelector<HTMLParagraphElement>(
-  ".display-area--quick-message"
-);
+const responseDisplay = document.querySelector<HTMLParagraphElement>("#display-response");
+const quickMessage = document.querySelector<HTMLParagraphElement>(".display-area--quick-message");
 
-if (
-  !searchLyricSubmit ||
-  !responseDisplay ||
-  !responseDisplay ||
-  !quickMessage ||
-  !displayArea
-) {
+if (!searchLyricSubmit || !responseDisplay || !responseDisplay || !quickMessage || !displayArea) {
   throw new Error("Missing DOM elements on home page");
 }
 
@@ -39,25 +29,23 @@ interface SongDetails {
 
 const searchSong = async (input: string): Promise<SongDetails> => {
   const lyric: string = cleanInput(input);
-  const url: URL = new URL("localhost:8080/api/songs");
-  url.searchParams.append("search", lyric);
+  const url: URL = new URL("http://localhost:8080/api/songs");
+  url.searchParams.append("words", lyric);
   const response = await fetch(url.toString());
-  if (!response.ok)
-    throw new Error(
-      "Could not find this song, are you sure you typed it correctly? It may also not be on our database"
-    );
+  if (!response.ok) throw new Error("Could not find this song, are you sure you typed it correctly? It may also not be on our database");
   const songDetails: SongDetails = await response.json();
   return songDetails;
 };
 searchLyricSubmit.addEventListener("click", async (e) => {
   e.preventDefault();
 
-  const lyricForm = document.querySelector(
-    "#input-field"
-  ) as HTMLTextAreaElement;
+  const lyricForm = document.querySelector("#input-field") as HTMLTextAreaElement;
 
   try {
     const song = await searchSong(lyricForm.value);
+
+    console.log(song);
+
     responseDisplay.innerHTML = `
     Song: ${song.song}<br><br>
     Artist: ${song.artist}<br><br>
