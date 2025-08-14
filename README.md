@@ -42,5 +42,7 @@ The project is built with:
 ### Contact the Developers 📞
 
 Georgy
+
 Matt
+
 Yuyao
