@@ -1,20 +1,21 @@
-# Use Java 21 JDK
+# Use a Java 21 base image
 FROM eclipse-temurin:21-jdk-alpine
 
-# Set working directory inside container
+# Install bash, Maven, and any necessary tools
+RUN apk add --no-cache bash maven git
+
+# Set working directory
 WORKDIR /app
 
-# Copy Maven pom.xml first (for dependency caching)
+# Copy pom and source files
 COPY pom.xml .
-
-# Copy source code
 COPY src ./src
 
-# Build Spring Boot app
+# Build the Spring Boot app
 RUN mvn clean package -DskipTests
 
-# Expose default port (Railway maps dynamically)
+# Expose Spring Boot port
 EXPOSE 8080
 
-# Run Spring Boot
-ENTRYPOINT ["java", "-jar", "target/lyrics-api-springboot-0.0.1-SNAPSHOT.jar"]
+# Run the Spring Boot app
+ENTRYPOINT ["java","-jar","target/lyrics-api-springboot-0.0.1-SNAPSHOT.jar"]
