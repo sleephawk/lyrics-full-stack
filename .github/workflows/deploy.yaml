@@ -1,4 +1,10 @@
-backend:
+name: Deploy Fullstack Application
+on:
+  push:
+    branches:
+      - main
+jobs:
+  backend:
   name: Deploy Backend to Railway
   runs-on: ubuntu-latest
   env:
