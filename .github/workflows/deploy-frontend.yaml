@@ -25,16 +25,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Setup Node
+      # 2. Install pnpm
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 3. Setup Node
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
           cache: "pnpm"
-
-      # 3. Install pnpm
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       # 4. Install dependencies for all workspaces
       - name: Install dependencies
