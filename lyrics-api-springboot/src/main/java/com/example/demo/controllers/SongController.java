@@ -43,5 +43,16 @@ public class SongController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/randomSong")
+    public Song getRandomSong() {
+        return songService.getRandomSong();
+    }
+
+    @DeleteMapping("/{name}")
+    public String deleteSong(@PathVariable String name) {
+        songService.deleteSong(name);
+        return "Song called: " + name + " has been deleted";
+    }
 }
 

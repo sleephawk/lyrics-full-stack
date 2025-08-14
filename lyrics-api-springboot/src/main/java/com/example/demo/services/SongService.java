@@ -7,11 +7,14 @@ import com.example.demo.models.Song;
 import com.example.demo.repositories.ArtistRepo;
 import com.example.demo.repositories.GenreRepo;
 import com.example.demo.repositories.SongRepo;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -83,5 +86,27 @@ public class SongService {
                             .allMatch(lowerLyrics::contains);
                 })
                 .collect(Collectors.toList());
+    }
+
+    public Song getRandomSong() {
+        long count = songRepo.count();
+        if (count == 0) {
+            throw new EntityNotFoundException("Repository is empty!");
+        }
+
+        int randomId = (int) (Math.random() * count);
+        randomId = Math.max(randomId, 1);
+        return songRepo.findAll().get(randomId);
+    }
+
+    @Transactional
+    public void deleteSong(String name) {
+        Optional<Song> song = songRepo.findByName(name);
+        if(song.isEmpty())
+        {
+            throw new EntityNotFoundException("Song called: " + name + " does not exist");
+        }
+        songRepo.deleteById(song.get().getId());
+        return;
     }
 }
