@@ -4,32 +4,22 @@ import { sleep } from "./utils";
 
 //Query Selectors
 
-const searchLyricSubmit =
-  document.querySelector<HTMLButtonElement>("#searchLyricSubmit");
+const searchLyricSubmit = document.querySelector<HTMLButtonElement>("#searchLyricSubmit");
 const displayArea = document.querySelector<HTMLDivElement>(".display-area");
-const responseDisplay =
-  document.querySelector<HTMLParagraphElement>("#display-response");
-const quickMessage = document.querySelector<HTMLParagraphElement>(
-  ".display-area--quick-message"
-);
+const responseDisplay = document.querySelector<HTMLParagraphElement>("#display-response");
+const quickMessage = document.querySelector<HTMLParagraphElement>(".display-area--quick-message");
 
-if (
-  !searchLyricSubmit ||
-  !responseDisplay ||
-  !responseDisplay ||
-  !quickMessage ||
-  !displayArea
-) {
+if (!searchLyricSubmit || !responseDisplay || !responseDisplay || !quickMessage || !displayArea) {
   throw new Error("Missing DOM elements on home page");
 }
 
 interface SongDetails {
   id: number;
-  name: string;
-  artistNames: string[];
-  releaseYear: number;
+  songs: string;
+  artists: string[];
+  release_year: number;
   lyrics: string[];
-  genreNames: string[];
+  song_genres: string[];
 }
 
 const searchSong = async (input: string): Promise<SongDetails[]> => {
@@ -39,9 +29,7 @@ const searchSong = async (input: string): Promise<SongDetails[]> => {
 
   const response = await fetch(url.toString());
   if (!response.ok) {
-    throw new Error(
-      "Could not find this song, are you sure you typed it correctly? It may also not be on our database"
-    );
+    throw new Error("Could not find this song, are you sure you typed it correctly? It may also not be on our database");
   }
 
   const songDetails: SongDetails[] = await response.json();
@@ -51,25 +39,21 @@ const searchSong = async (input: string): Promise<SongDetails[]> => {
 searchLyricSubmit.addEventListener("click", async (e) => {
   e.preventDefault();
   responseDisplay.innerHTML = "";
-  const lyricForm = document.querySelector(
-    "#input-field"
-  ) as HTMLTextAreaElement;
+  const lyricForm = document.querySelector("#input-field") as HTMLTextAreaElement;
 
   try {
     const song = await searchSong(lyricForm.value);
-
+    console.log(song);
     song.forEach(async (s, i) => {
       let card = document.createElement("p");
       card.classList.add("display-area--text__card");
-      card.innerHTML = `▶ ${s.artistNames.join(", ")}:<br> ${s.name} `;
+      card.innerHTML = `▶ ${s.artists.join(", ")}:<br> ${s.songs} `;
       let cardExpand = false;
       responseDisplay.appendChild(card);
       await sleep((i + 1) * 200);
       card.style.opacity = "1";
       card.addEventListener("click", () => {
-        const youtube: string = `https://www.youtube.com/results?search_query=${
-          s.name
-        }+${s.artistNames.join("+")}`;
+        const youtube: string = `https://www.youtube.com/results?search_query=${s.songs}+${s.artists.join("+")}`;
 
         if (!cardExpand) {
           const link: HTMLAnchorElement = document.createElement("a");
@@ -77,16 +61,16 @@ searchLyricSubmit.addEventListener("click", async (e) => {
           link.setAttribute("target", "_blank");
           link.textContent = "Find on Youtube";
           card.innerHTML = `
-            ▼ ${s.artistNames.join(", ")}<br><br>
-            ${s.name}<br><br>
-            Release Year: ${s.releaseYear}<br><br>
-            Genre(s): ${s.genreNames.join(", ")}<br><br>
+            ▼ ${s.artists.join(", ")}<br><br>
+            ${s.songs}<br><br>
+            Release Year: ${s.release_year}<br><br>
+            Genre(s): ${s.song_genres.join(", ")}<br><br>
             Lyrics:<br> ${s.lyrics}<br><br>
             `;
           card.appendChild(link);
           cardExpand = true;
         } else {
-          card.innerHTML = `▶ ${s.artistNames.join(", ")}:<br> ${s.name} `;
+          card.innerHTML = `▶ ${s.artists.join(", ")}:<br> ${s.songs} `;
           cardExpand = false;
         }
       });
@@ -112,9 +96,9 @@ searchLyricSubmit.addEventListener("click", async (e) => {
 {
   "name": "Bohemian Rhapsody",
   "lyrics": "Is this the real life? Is this just fantasy?...",
-  "releaseYear": 1975,
+  "release_year": 1975,
   "authorNames": ["Freddie Mercury", "Queen"],
-  "genreNames": ["Rock", "Progressive Rock"]
+  "song_genres": ["Rock", "Progressive Rock"]
 }
  */
 
@@ -135,7 +119,7 @@ searchLyricSubmit.addEventListener("click", async (e) => {
  */
 
 /**
- * [{"id":2,"name":"Yellow Submarine","lyrics":"In the town where I was born Lived a man who sailed to sea And he told us of his life","releaseYear":1980,"authors":[{"id":3,"name":"Beetles"}],"genres":[{"id":3,"name":"Pop"},{"id":4,"name":"Brit Pop"}]}]
+ * [{"id":2,"name":"Yellow Submarine","lyrics":"In the town where I was born Lived a man who sailed to sea And he told us of his life","release_year":1980,"authors":[{"id":3,"name":"Beetles"}],"genres":[{"id":3,"name":"Pop"},{"id":4,"name":"Brit Pop"}]}]
  */
 
 //http://localhost:8080/api/songs
