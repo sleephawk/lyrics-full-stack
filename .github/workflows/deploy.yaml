@@ -4,38 +4,38 @@ on:
       - main
 
 jobs:
-backend:
-  name: Deploy Backend to Railway
-  runs-on: ubuntu-latest
-  env:
-    MYSQLHOST: ${{ secrets.MYSQLHOST }}
-    MYSQLPORT: ${{ secrets.MYSQLPORT }}
-    MYSQLPASSWORD: ${{ secrets.MYSQLPASSWORD }}
-    RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-    RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
-    PORT: 8080
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  backend:
+    name: Deploy Backend to Railway
+    runs-on: ubuntu-latest
+    env:
+      MYSQLHOST: ${{ secrets.MYSQLHOST }}
+      MYSQLPORT: ${{ secrets.MYSQLPORT }}
+      MYSQLPASSWORD: ${{ secrets.MYSQLPASSWORD }}
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
+      # PORT: 8080
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # Install Node.js for Railway CLI
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: "18"
+      # Install Node.js for Railway CLI
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
 
-    # Install latest Railway CLI globally
-    - name: Install Railway CLI
-      run: npm install -g @railway/cli@latest
+      # Install latest Railway CLI globally
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli@latest
 
-    # Build Docker image for Java 21 backend
-    - name: Build Docker image
-      working-directory: ./lyrics-api-springboot
-      run: docker build -t lyrics-api .
+      # Build Docker image for Java 21 backend
+      - name: Build Docker image
+        working-directory: ./lyrics-api-springboot
+        run: docker build -t lyrics-api .
 
-    # Deploy Docker container to Railway
-    - name: Deploy to Railway
-      working-directory: ./lyrics-api-springboot
-      run: |
-        railway login --token $RAILWAY_TOKEN
-        railway up --detached
+      # Deploy Docker container to Railway
+      - name: Deploy to Railway
+        working-directory: ./lyrics-api-springboot
+        run: |
+          railway login --token $RAILWAY_TOKEN
+          railway up --detached
