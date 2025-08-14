@@ -34,8 +34,11 @@ interface SongDetails {
 
 const searchSong = async (input: string): Promise<SongDetails[]> => {
   const lyric: string = sanitiseInput(input);
+  const words = lyric.split(",").map((w) => w.trim());
+
   const url = new URL("http://localhost:8080/api/songs");
-  url.searchParams.append("words", lyric);
+
+  words.forEach((word) => url.searchParams.append("words", word));
 
   const response = await fetch(url.toString());
   if (!response.ok) {
@@ -55,7 +58,17 @@ searchLyricSubmit.addEventListener("click", async (e) => {
 
   try {
     const song = await searchSong(lyricForm.value);
+    if (song.length <= 0) {
+      quickMessage.textContent =
+        "We found...nothing this time! Try something new.";
+      displayArea.style.opacity = "1";
+      quickMessage.style.opacity = "1";
+      await sleep(500);
+      displayArea.style.opacity = "0";
+      quickMessage.style.opacity = "0";
+    }
     console.log(song);
+
     song.forEach(async (s, i) => {
       let card = document.createElement("p");
       card.classList.add("display-area--text__card");
@@ -92,6 +105,7 @@ searchLyricSubmit.addEventListener("click", async (e) => {
     });
 
     displayArea.style.opacity = "1";
+    quickMessage.textContent = "We found...";
     quickMessage.style.opacity = "1";
     await sleep(300);
     responseDisplay.style.opacity = "1";

@@ -22,11 +22,20 @@
         <a href="#">Submit A Song</a>
       </nav>
     </header>
-    <main>
-      <h1>We're a small team, help us fill up our database!</h1>
-      <p id="error-message"></p>
-      <form id="submit-song-form">
-        <!-- will need to change author to artist -->
+    <main class="submit-page">
+      <div class="submit-page--heading-container">
+        <h1 class="submit-page--heading-container__heading">
+          We're a small team, help us fill up our database!
+        </h1>
+        <p class="submit-page--heading-container__message">
+          <em>Please comma separate artists and genres</em>
+        </p>
+        <p
+          id="error-message"
+          class="submit-page--heading-container__error-message"
+        ></p>
+      </div>
+      <form id="submit-song-form" class="submit-page--form">
         <label for="name">Song name:</label><br />
         <input
           id="name"
