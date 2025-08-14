@@ -32,9 +32,9 @@ submitSongForm.addEventListener("submit", async (e) => {
 
   const json = JSON.stringify({
     name: name,
-    artists: artists,
+    artistNames: artists,
     releaseYear: releaseYear,
-    genres: genres,
+    genreNames: genres,
     lyrics: lyrics,
   });
 
