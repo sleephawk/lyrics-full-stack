@@ -1,4 +1,4 @@
 .DS_Store
 **/.DS_Store
 .idea/workspace.xml
-/target/
+lyrics-api-springboot/target/
