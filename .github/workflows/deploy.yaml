@@ -12,6 +12,7 @@ jobs:
       MYSQLPORT: ${{ secrets.MYSQLPORT }}
       MYSQLPASSWORD: ${{ secrets.MYSQLPASSWORD }}
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      RAILWAY_PROJECT_ID: ${{ secrets.RAILWAY_PROJECT_ID }}
       PORT: 8080
     steps:
       - name: Checkout code
@@ -29,7 +30,9 @@ jobs:
         run: npm install -g @railway/cli
       - name: Deploy to Railway
         working-directory: ./lyrics-api-springboot
-        run: railway up --service backend --detach
+        run: |
+          railway login --token $RAILWAY_TOKEN
+          railway up --detached
   frontend:
     name: Deploy Vite Frontend to GitHub Pages
     runs-on: ubuntu-latest
