@@ -24,18 +24,18 @@ submitSongForm.addEventListener("submit", async (e) => {
   const artistNames: string = sanitiseInput(
     formData.get("artistNames") as string
   );
-  const artists: string[] = artistNames.split(",");
+  const artists: string[] = artistNames.trim().split(",");
   const releaseYear = sanitiseInput(formData.get("releaseYear") as string);
   const genreNames = sanitiseInput(formData.get("genreNames") as string);
-  const genres: string[] = genreNames.split(",");
+  const genres: string[] = genreNames.trim().split(",");
   const lyrics = sanitiseInput(formData.get("lyrics") as string);
 
   const json = JSON.stringify({
     name: name,
-    artistNames: artists,
-    releaseYear: releaseYear,
-    genreNames: genres,
     lyrics: lyrics,
+    releaseYear: releaseYear,
+    artistNames: artists,
+    genreNames: genres,
   });
 
   console.log(json);
@@ -45,7 +45,7 @@ submitSongForm.addEventListener("submit", async (e) => {
       body: JSON.stringify({
         name: name,
         artists: artists,
-        releaseYear: releaseYear,
+        releaseYear: Number(releaseYear),
         genres: genres,
         lyrics: lyrics,
       }),
