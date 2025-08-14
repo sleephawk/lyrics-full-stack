@@ -79,9 +79,7 @@ searchLyricSubmit.addEventListener("click", async (e) => {
       await sleep((i + 1) * 200);
       card.style.opacity = "1";
       card.addEventListener("click", () => {
-        const youtube: string = `https://www.youtube.com/results?search_query=${
-          s.name
-        }+${s.artists.join("+")}`;
+        const youtube: string = `https://www.youtube.com/results?search_query=${s.name}+${artistNames}`;
 
         if (!cardExpand) {
           const link: HTMLAnchorElement = document.createElement("a");
@@ -90,7 +88,7 @@ searchLyricSubmit.addEventListener("click", async (e) => {
           link.textContent = "Find on Youtube";
 
           const genreNames = s.genres.map((g) => g.name).join(", ");
-          card.innerHTML = `▶ ${artistNames}:<br> ${s.name} 
+          card.innerHTML = `▶ ${artistNames}:<br> ${s.name}<br>
             Release Year: ${s.releaseYear}<br><br>
             Genre(s): ${genreNames}<br><br>
             Lyrics:<br> ${s.lyrics}<br><br>
